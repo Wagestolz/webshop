@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- font-awesome -->
+        <script
+            src="https://kit.fontawesome.com/9c03ecbd21.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- styles css -->
+        <link rel="stylesheet" href="/style.css" />
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Original+Surfer&display=swap');
+        </style>
+        <title>Webshop</title>
+    </head>
+    <body>
+        <div id="main" v-cloak>
+            <!-- navbar -->
+            <nav class="navbar">
+                <div class="nav-center">
+                    <!-- links -->
+                    <div>
+                        <button class="toggle-nav" @click="toggleNav">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <ul class="nav-links">
+                            <li>
+                                <a @click="navHome" class="nav-link"> home</a>
+                            </li>
+                            <li>
+                                <a @click="navProducts" class="nav-link">
+                                    products</a
+                                >
+                            </li>
+                            <li>
+                                <a @click="navAbout" class="nav-link"> about</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- logo -->
+                    <img src="/img/Aloha.gif" class="nav-logo" alt="logo" />
+                    <!-- cart icon -->
+                    <div class="toggle-container">
+                        <button
+                            class="toggle-cart"
+                            @click="toggleCart(); cartValue();"
+                        >
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                        <span class="cart-item-count">{{cartCount}}</span>
+                    </div>
+                </div>
+            </nav>
+            <!-- sidebar -->
+            <div class="sidebar-overlay" v-bind:class="{ show: toggleActive }">
+                <aside class="sidebar">
+                    <button class="sidebar-close" @click="toggleNav">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <ul class="sidebar-links">
+                        <li>
+                            <a
+                                @click="navHome(); toggleNav();"
+                                class="sidebar-link"
+                            >
+                                <i class="fas fa-home fa-fw"></i>home
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                @click="navProducts(); toggleNav();"
+                                class="sidebar-link"
+                            >
+                                <i class="fas fa-tshirt fa-fw"></i>products
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                @click="navAbout(); toggleNav();"
+                                class="sidebar-link"
+                            >
+                                <i class="fas fa-umbrella-beach fa-fw"></i>about
+                            </a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <!-- end of sidebar -->
+            <!-- cart -->
+            <div class="cart-overlay" v-bind:class="{ show: cartToggleActive }">
+                <aside class="cart">
+                    <button
+                        class="cart-close"
+                        @click="toggleCart(); cartValue();"
+                    >
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <header>
+                        <h3 class="text-slanted">your cart</h3>
+                    </header>
+                    <!-- cart items -->
+                    <div class="cart-items">
+                        <!-- single item -->
+                        <article
+                            class="cart-item"
+                            v-for="(each, index) in cart"
+                            v-bind:key="each.id"
+                        >
+                            <img
+                                :src="each.fields.image[0].url"
+                                class="cart-item-img"
+                                :alt="each.fields.name"
+                            />
+                            <!-- item-info -->
+                            <div>
+                                <h4 class="cart-item-name">
+                                    {{each.fields.name}}
+                                </h4>
+                                <p class="cart-item-price">
+                                    €{{each.fields.price}}
+                                </p>
+                                <button
+                                    @click="removeItem(each.id, index); cartValue()"
+                                    class="cart-item-remove-btn"
+                                >
+                                    remove
+                                </button>
+                            </div>
+                            <!-- amount-toggle -->
+                            <div>
+                                <button
+                                    @click="increaseAmount(index,each.id)"
+                                    class="cart-item-increase-btn"
+                                >
+                                    <i class="fas fa-chevron-up"></i>
+                                </button>
+                                <p class="cart-item-amount">{{each.amount}}</p>
+                                <button
+                                    @click="decreaseAmount(index,each.id)"
+                                    class="cart-item-decrease-btn"
+                                >
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                    <!-- cart footer -->
+                    <footer>
+                        <h3 class="cart-total text-slanted">
+                            total: €{{total}}
+                        </h3>
+                        <button class="cart-checkout btn">checkout</button>
+                    </footer>
+                </aside>
+            </div>
+            <!-- HOME COMPONENT -->
+            <home-component
+                @cart-addition="addItemToCart"
+                @all-products="navProducts"
+                v-if="home"
+                :click-id="clickId"
+            ></home-component>
+            <!-- HOME COMPONENT -->
+            <!-- ALL-PRODUCTS COMPONENT -->
+            <all-products-component
+                @cart-addition="addItemToCart"
+                v-if="products"
+                :click-id="clickId"
+            ></all-products-component>
+            <!-- ALL-PRODUCTS COMPONENT -->
+            <!-- ABOUT COMPONENT -->
+            <about-component v-if="about"></about-component>
+            <!-- ABOUT COMPONENT -->
+            <!-- PRODUCT COMPONENT -->
+            <product-component
+                v-if="clickId"
+                :click-id="clickId"
+                @close="closeMe"
+                @cart-addition="addItemToCart"
+            >
+            </product-component>
+            <!-- PRODUCT COMPONENT -->
+        </div>
+        <!-- End of Vue Instance -->
+        <!-- HOME-Component Script tag -->
+        <script id="home-template" type="text/x-template">
+            <div class="home">
+            <!-- hero -->
+            <section class="hero">
+                <div class="hero-container">
+                    <h1 class="text-slanted">Aloha Everyday</h1>
+                    <h3>Hawaiian Menswear</h3>
+                    <a @click="FireNavProducts" class="hero-btn">shop now</a>
+                </div>
+            </section>
+            <!-- End of hero -->
+            <!-- featured products -->
+            <section class="section featured">
+                <div class="title">
+                    <h2><span>/</span> featured</h2>
+                </div>
+                <div class="featured-center section-center">
+                    <!-- <h2 class="section-loading">loading...</h2> -->
+                    <!-- single product -->
+                    <article
+                        class="product"
+                        v-for="each in featuredProducts"
+                        v-bind:key="each.id"
+                    >
+                        <div class="product-container">
+                            <img
+                                :src="each.fields.image[0].url"
+                                class="product-img img"
+                                alt="each.id"
+                            />
+                            <div class="product-icons">
+                                <a :href="'#'+each.id" class="product-icon"
+                                    ><i class="fas fa-search"></i
+                                ></a>
+                                <button
+                                    @click="addToCart(each.id)"
+                                    class="product-cart-button product-icon"
+                                >
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <footer>
+                            <p class="product-name">{{each.fields.name}}</p>
+                            <h4 class="product-price">
+                                €{{each.fields.price}}
+                            </h4>
+                        </footer>
+                    </article>
+                    <!-- End of single product -->
+                </div>
+                <div>
+                    <a @click="FireNavProducts" href="#" class="btn">all products</a>
+                </div>
+            </section>
+            <!-- End of featured products -->
+            </div>
+        </script>
+        <!-- End of HOME-Component Script tag -->
+        <!-- PRODUCT-Component Script Tag -->
+        <script id="product-template" type="text/x-template">
+            <div class="product-modal">
+                <!-- heading -->
+                    <section class="page-hero modal-header">
+                    <div class="section-center">
+                        <h3 class="page-hero-title">Home / {{product[0].fields.name}}</h3>
+                    </div>
+                    </section>
+                <!-- End of heading -->
+                <h2 @click="closeProduct" class="close-btn"><i class="fas fa-times"></i></h2>
+                <section class="single-product">
+                    <div class="section-center single-product-center">
+                        <img :src="product[0].fields.image[0].url" class="single-product-img img" alt="product[0].fields.name">
+                        <article class="single-product-info">
+                            <h2 class="single-product-title">{{product[0].fields.name}}</h2>
+                            <p class="single-product-company text-slanted">
+                                by {{product[0].fields.brand}}
+                            </p>
+                            <p class="single-product-price">€{{product[0].fields.price}}</p>
+                            <div class="single-product-colors">
+                                <span v-for="each in product[0].fields.colors" class="product-color" v-bind:style="{ backgroundColor: each }"></span>
+                            </div>
+                            <p class="single-product-desc">{{product[0].fields.description}}</p>
+                            <button @click="addProductToCart(product[0].id)" class="addToCartBtn btn">add to cart</button>
+                        </article>
+                    </div>
+                </section>
+            </div>
+        </script>
+        <!-- End of PRODUCT-Component Script Tag -->
+        <!-- ALLPRODUCTS-Component Script Tag -->
+        <script id="all-products-template" type="text/x-template">
+            <div class="all-products">
+                <!-- hero -->
+                <section class="page-hero">
+                <div class="section-center">
+                    <h3 class="page-hero-title">Home / Products</h3>
+                </div>
+                </section>
+            <!-- End of hero -->
+            <!-- products  -->
+            <section class="products">
+                <!-- filters -->
+                <div class="filters">
+                    <div class="filters-container">
+                        <!-- search  -->
+                        <form class="input">
+                            <input type="text" class="search-input" placeholder="search..." v-on:keyup="searchFilter" v-model="searchInput">
+                        </form>
+                        <!-- brand -->
+                        <h4>Brand</h4>
+                        <article class="companies"                     >
+                            <button @click="getProducts" class="company-btn">all</button>
+                            <button @click="getBrandProducts(each)" v-for="each in brands" class="company-btn">{{each}}</button>
+                        </article>
+                        <!-- price -->
+                        <h4>Price</h4>
+                        <form class="price-form">
+                            <input type="range" class="price-filter" :min="minPrice"  :max="maxPrice" v-on:input="priceInputChange($event)">
+                        </form>
+                        <p class="price-value">€{{searchPrice}}</p>
+                        <!-- fabric -->
+                        <!-- tags -->
+                    </div>
+                </div>
+                <div class="products-container">
+                    <!-- <div class="featured-center section-center"> -->
+                        <!-- single product -->
+                    <article
+                    class="product"
+                    v-for="each in products"
+                    v-bind:key="each.id"
+                    >
+                    <div class="product-container">
+                        <img
+                        :src="each.fields.image[0].url"
+                        class="product-img img"
+                        alt="each.id"
+                        />
+                        <div class="product-icons">
+                            <a :href="'#'+each.id" class="product-icon"
+                            ><i class="fas fa-search"></i
+                                ></a>
+                                <button
+                                @click="addToCart(each.id)"
+                                    class="product-cart-button product-icon"
+                                    >
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <footer>
+                            <p class="product-name">{{each.fields.name}}</p>
+                            <h4 class="product-price">
+                                €{{each.fields.price}}
+                            </h4>
+                        </footer>
+                    </article>
+                    <!-- End of single product -->
+                <!-- </div> -->
+            </div>
+            </section>
+            </div>
+        </script>
+        <!-- End of ALLPRODUCTS-Component Script Tag -->
+        <!-- ABOUT-Component Script Tag -->
+        <script id="about-template" type="text/x-template">
+            <div class="all-products">
+                <!-- hero -->
+                <section class="page-hero">
+                <div class="section-center">
+                    <h3 class="page-hero-title">Home / About</h3>
+                </div>
+                </section>
+            <!-- End of hero -->
+            <!-- about -->
+            <section class="section section-center about-page">
+            <div class="title">
+                <h2><span>/</span> our history</h2>
+            </div>
+                <p class="about-text">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error
+                tempora exercitationem qui hic molestiae voluptatem possimus
+                iusto maiores culpa autem voluptatum labore tempore magnam
+                facere accusamus dolore dolores commodi, unde ex debitis itaque
+                odio inventore, nesciunt reiciendis! Quod voluptatem molestiae
+                provident ullam nihil harum dolorem esse ex. Rerum maiores
+                assumenda dolores provident dignissimos dicta quos nam cum at,
+                impedit, voluptas repudiandae! Illum fuga odio nesciunt laborum
+                est, sed consequatur laudantium qui aspernatur, voluptas
+                eveniet! Officiis aliquid quas natus ea cumque.
+                </p>
+            </section>
+            </div>
+        </script>
+        <!-- End of ABOUT-Component Script Tag -->
+        <script src="/js/vue.js"></script>
+        <script src="/js/axios.min.js"></script>
+        <script src="/js/script.js"></script>
+    </body>
+</html>

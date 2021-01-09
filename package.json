@@ -1,0 +1,25 @@
+{
+    "name": "aloha-webshop",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Wagestolz/Aloha-Webshop.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Wagestolz/Aloha-Webshop/issues"
+    },
+    "homepage": "https://github.com/Wagestolz/Aloha-Webshop#readme",
+    "dependencies": {
+        "aws-sdk": "^2.817.0",
+        "express": "^4.17.1",
+        "spiced-pg": "^1.0.4"
+    }
+}

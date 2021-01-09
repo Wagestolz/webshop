@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS products;
+
+
+CREATE TABLE products (
+	id SERIAL NOT NULL PRIMARY KEY,
+	fields JSON NOT NULL
+);
+
+
+INSERT INTO products (fields)
+VALUES('{
+        "name": "Product1",
+        "price": 32.99,
+        "brand": "Brand1",
+        "tags": ["nice", "awesome", "amazing"],
+        "featured": true,
+        "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maxime esse officia dolorem minima, a repudiandae, impedit cum ipsum aut quibusdam aliquid obcaecati deleniti, eius exercitationem. Sunt illo perferendis obcaecati error.",
+        "image": [
+            {
+                "id": 1,
+                "url": "https://s3.amazonaws.com/aloha.shop/Shirt1.png",
+                "filename": "Shirt1.png",
+                "size": 62864,
+                "type": "image/png"
+            }
+        ]
+    }');
+    
