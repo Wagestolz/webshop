@@ -26,17 +26,17 @@
                             <i class="fas fa-bars"></i>
                         </button>
                         <ul class="nav-links">
-                            <li>
+                            <!-- <li>
                                 <a @click="navHome" class="nav-link"> home</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a @click="navProducts" class="nav-link">
                                     products</a
                                 >
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a @click="navAbout" class="nav-link"> about</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <!-- logo -->
@@ -61,12 +61,12 @@
                     </button>
                     <ul class="sidebar-links">
                         <li>
-                            <a
+                            <!-- <a
                                 @click="navHome(); toggleNav();"
                                 class="sidebar-link"
                             >
                                 <i class="fas fa-home fa-fw"></i>home
-                            </a>
+                            </a> -->
                         </li>
                         <li>
                             <a
@@ -77,12 +77,12 @@
                             </a>
                         </li>
                         <li>
-                            <a
+                            <!-- <a
                                 @click="navAbout(); toggleNav();"
                                 class="sidebar-link"
                             >
                                 <i class="fas fa-umbrella-beach fa-fw"></i>about
-                            </a>
+                            </a> -->
                         </li>
                     </ul>
                 </aside>
@@ -156,12 +156,12 @@
                 </aside>
             </div>
             <!-- HOME COMPONENT -->
-            <home-component
+            <!-- <home-component
                 @cart-addition="addItemToCart"
                 @all-products="navProducts"
                 v-if="home"
                 :click-id="clickId"
-            ></home-component>
+            ></home-component> -->
             <!-- HOME COMPONENT -->
             <!-- ALL-PRODUCTS COMPONENT -->
             <all-products-component
@@ -171,7 +171,7 @@
             ></all-products-component>
             <!-- ALL-PRODUCTS COMPONENT -->
             <!-- ABOUT COMPONENT -->
-            <about-component v-if="about"></about-component>
+            <!-- <about-component v-if="about"></about-component> -->
             <!-- ABOUT COMPONENT -->
             <!-- PRODUCT COMPONENT -->
             <product-component
@@ -264,9 +264,9 @@
                                 by {{product[0].fields.brand}}
                             </p>
                             <p class="single-product-price">€{{product[0].fields.price}}</p>
-                            <div class="single-product-colors">
+                            <!-- <div class="single-product-colors">
                                 <span v-for="each in product[0].fields.colors" class="product-color" v-bind:style="{ backgroundColor: each }"></span>
-                            </div>
+                            </div> -->
                             <p class="single-product-desc">{{product[0].fields.description}}</p>
                             <button @click="addProductToCart(product[0].id)" class="addToCartBtn btn">add to cart</button>
                         </article>
