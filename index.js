@@ -87,6 +87,6 @@ app.use(express.static('public'));
 
 if (require.main == module) {
     app.listen(process.env.PORT || 8080, () => {
-        console.log('Aloha-Shop up and running');
+        console.log('webshop up and running');
     });
 }

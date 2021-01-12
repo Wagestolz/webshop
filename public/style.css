@@ -306,7 +306,7 @@ Hero
             rgba(151, 235, 212, 0.6),
             rgba(176, 201, 191, 0.8)
         ),
-        url(/img/bg1.jpg) center/cover;
+        url(/img/bg12.jpg) center/cover;
     display: grid;
     place-items: center;
     color: var(--black);
@@ -419,6 +419,7 @@ Sidebar
     color: var(--black);
     cursor: pointer;
 }
+
 .sidebar-link i {
     color: var(--black);
     margin-right: 1rem;
@@ -825,7 +826,7 @@ Single Product Page
             rgba(69, 123, 204, 0.6),
             rgba(176, 201, 191, 0.8)
         ),
-        url(/img/bg1.jpg) center/cover;
+        url(/img/bg12.jpg) center/cover;
 }
 .modal-header {
     min-height: 20vh;
