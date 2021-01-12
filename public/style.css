@@ -7,11 +7,11 @@
 
 /* 
 ===================
-Fonts (Arvo, Lato) 
+Font "Fira Sans"
 ===================
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
 
 /*
 =============== 
@@ -20,27 +20,30 @@ Variables
 */
 
 :root {
+    /*  DivaE COLOR PATTERN */
+    --pink: #e6007e;
+    --gold: #c3a815;
+    --darkGrey: #6c6c6c;
+    --offWhite: #ffffff;
+    --black: #000;
     /*  COLOR PATTERN */
     --mint: #97ebd4;
     --muddymint: #b0c9bf;
-    --offWhite: rgb(238, 238, 238);
-    --black: rgb(3, 5, 4);
     /* --lila: #5b2fb2; */
-    --lila: #f3c6bd;
+    /* --lila: #f3c6bd; */
+    --lila: #e6007e;
     --clr-grey-3: hsl(209, 34%, 30%);
-
     --baby: #45a6cc;
     --babyMid: #4591cc;
     --babyDark: #457bcc;
-    --pink: #e541a5;
     --pinkLight: #f349b2;
     --sun: #ecc03a;
     --bright: #f0e047;
 
     --light: #dba988;
     /*  FONT PAIRING */
-    --ff-heading: 'Arvo', serif;
-    --ff-text: 'Lato', sans-serif;
+    --ff-heading: 'Fira Sans', sans-serif;
+    --ff-text: 'Fira Sans', sans-serif;
 
     --clr-grey-1: #102a42;
     --clr-grey-2: hsl(211, 39%, 23%);
@@ -54,7 +57,7 @@ Variables
     --clr-grey-9: hsl(212, 33%, 89%);
     --clr-grey-10: hsl(210, 36%, 96%);
     --transition: all 0.3s linear;
-    --spacing: 0.1rem;
+    --spacing: 0rem;
     /* --radius: 0.25rem;  */
     --radius: 0.75rem; /* added*/
     --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -77,11 +80,11 @@ Global Styles
 }
 body {
     font-family: var(--ff-text);
-    background: linear-gradient(
+    /* background: linear-gradient(
         0deg,
-        rgba(151, 235, 212, 0.9),
-        rgba(176, 201, 191, 1)
-    );
+        rgba(255, 255, 255, 0.9),
+        rgba(230, 0, 126, 1)
+    ); */
     color: var(--black);
     line-height: 1.5;
     font-size: 0.875rem;
@@ -97,6 +100,7 @@ h2,
 h3,
 h4 {
     letter-spacing: var(--spacing);
+
     text-transform: capitalize;
     line-height: 1.25;
     margin-bottom: 0.75rem;
@@ -144,7 +148,7 @@ p {
     }
 }
 .nav-logo {
-    width: 80px; /* added*/
+    width: 200px; /* added*/
     /* box-shadow: var(--light-shadow);
     border-radius: var(--radius); */
 }
@@ -238,7 +242,7 @@ Navbar
     position: absolute;
     top: -0.85rem;
     right: -0.85rem;
-    background: var(--lila);
+    background: var(--offWhite);
     width: 1.75rem;
     height: 1.75rem;
     display: grid;
@@ -275,7 +279,7 @@ Navbar
         cursor: pointer;
     }
     .nav-link:hover {
-        color: var(--clr-grey-3);
+        color: var(--offWhite);
     }
 }
 @media screen and (min-width: 992px) {
@@ -288,7 +292,7 @@ Navbar
     color: var(--black);
 }
 .page .nav-link:hover {
-    color: var(--clr-grey-5);
+    color: var(--pink);
 }
 .page .toggle-cart {
     color: var(--black);
@@ -303,10 +307,10 @@ Hero
     margin-top: -6rem;
     background: linear-gradient(
             0deg,
-            rgba(151, 235, 212, 0.6),
-            rgba(176, 201, 191, 0.8)
+            rgba(255, 255, 255, 0.6),
+            rgba(230, 0, 126, 0.8)
         ),
-        url(/img/bg12.jpg) center/cover;
+        url(/img/bg_divae1.png) center/cover;
     display: grid;
     place-items: center;
     color: var(--black);
@@ -375,11 +379,7 @@ Sidebar
     z-index: -1;
     transition: var(--transition);
     opacity: 0;
-    background: linear-gradient(
-        0deg,
-        rgba(151, 235, 212, 0.6),
-        rgba(176, 201, 191, 0.8)
-    );
+    background-color: var(--pink);
 }
 .sidebar-overlay.show {
     opacity: 1;
@@ -389,10 +389,7 @@ Sidebar
     width: 90vw;
     height: 95vh;
     max-width: var(--fixed-width);
-    background: linear-gradient(
-        rgba(151, 235, 212, 1),
-        rgba(176, 201, 191, 0.7)
-    );
+    background-color: var(--black);
     border-radius: var(--radius);
     box-shadow: var(--dark-shadow);
     position: relative;
@@ -406,7 +403,7 @@ Sidebar
     font-size: 2rem;
     background: transparent;
     border-color: transparent;
-    color: var(--black);
+    color: var(--offWhite);
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -414,14 +411,22 @@ Sidebar
 }
 .sidebar-link {
     font-size: 1.5rem;
+    font-weight: 700;
     text-transform: capitalize;
     font-family: var(--ff-heading);
-    color: var(--black);
+    color: var(--offWhite);
     cursor: pointer;
 }
 
+.sidebar-link:hover {
+    color: var(--pink);
+}
+.sidebar-link:hover i {
+    color: var(--pink);
+}
+
 .sidebar-link i {
-    color: var(--black);
+    color: var(--offWhite);
     margin-right: 1rem;
     margin-bottom: 1rem;
 }
@@ -459,8 +464,8 @@ Cart
     max-width: 400px;
     background: linear-gradient(
         0deg,
-        rgba(151, 235, 212, 0.9),
-        rgba(176, 201, 191, 1)
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0.8)
     );
     padding: 3rem 1rem 0 1rem;
     display: grid;
@@ -627,8 +632,8 @@ product
 .featured {
     background: linear-gradient(
         0deg,
-        rgba(151, 235, 212, 0.9),
-        rgba(176, 201, 191, 1)
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0.1)
     );
 }
 .featured-center {
@@ -721,11 +726,11 @@ Products Page
     transition: var(--transition);
 }
 .company-btn:hover {
-    color: var(--clr-grey-5);
+    color: var(--pink);
 }
 .price-filter {
-    background: var(--clr-grey-5) !important;
-    color: var(--clr-grey-5);
+    background: var(--pink) !important;
+    color: var(--pink);
 }
 .price-value {
     color: var(--clr-grey-3);
@@ -783,13 +788,10 @@ Single Product Page
     overflow: auto;
     background: linear-gradient(
         0deg,
-        rgba(151, 235, 212, 0.95),
-        rgb(176, 201, 191, 0.95)
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0.9)
     );
     z-index: 10;
-    /* display: grid;
-    justify-items: center;
-    align-items: start; */
     transition: var(--transition);
 }
 
@@ -798,13 +800,7 @@ Single Product Page
     width: 90vw;
     max-width: 1170px;
     margin: 0 auto;
-    /* display: grid;
-    grid-template-rows: auto auto 1fr;
-    grid-template-columns: 1fr 1fr;
-    justify-items: center;
-    align-items: start; */
     transition: var(--transition);
-    /* column-gap: 2rem; */
 }
 
 .close-btn {
@@ -823,14 +819,20 @@ Single Product Page
     color: var(--black);
     background: linear-gradient(
             0deg,
-            rgba(69, 123, 204, 0.6),
-            rgba(176, 201, 191, 0.8)
+            rgba(255, 255, 255, 0.6),
+            rgba(230, 0, 126, 0.8)
         ),
-        url(/img/bg12.jpg) center/cover;
+        url(/img/bg_divae2.png) center/cover;
 }
 .modal-header {
     min-height: 20vh;
-    background: var(--mint);
+    background: var(--black);
+}
+.modal-header h3 {
+    color: var(--offWhite);
+}
+.product-modal i {
+    color: var(--offWhite);
 }
 .page-hero-title {
     font-weight: 500;
@@ -899,4 +901,11 @@ Single Product Page
     .single-product-center {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+.pink:hover {
+    color: var(--pink);
+}
+.pinkcart {
+    background-color: var(--pink);
 }

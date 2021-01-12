@@ -11,7 +11,7 @@
         <!-- styles css -->
         <link rel="stylesheet" href="/style.css" />
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&family=Lato:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap');
         </style>
         <title>Webshop</title>
     </head>
@@ -26,21 +26,37 @@
                             <i class="fas fa-bars"></i>
                         </button>
                         <ul class="nav-links">
-                            <!-- <li>
-                                <a @click="navHome" class="nav-link"> home</a>
-                            </li> -->
                             <li>
-                                <a @click="navProducts" class="nav-link">
-                                    products</a
+                                <a
+                                    @click="navHome"
+                                    class="nav-link"
+                                    :class="{ pink: !home }"
+                                >
+                                    home</a
                                 >
                             </li>
-                            <!-- <li>
-                                <a @click="navAbout" class="nav-link"> about</a>
-                            </li> -->
+                            <li>
+                                <a
+                                    @click="navProducts"
+                                    class="nav-link"
+                                    :class="{ pink: !home }"
+                                >
+                                    services</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    @click="navAbout"
+                                    class="nav-link"
+                                    :class="{ pink: !home }"
+                                >
+                                    about</a
+                                >
+                            </li>
                         </ul>
                     </div>
                     <!-- logo -->
-                    <img src="/img/shop5.gif" class="nav-logo" alt="logo" />
+                    <img src="/img/divae.png" class="nav-logo" alt="logo" />
                     <!-- cart icon -->
                     <div class="toggle-container">
                         <button
@@ -49,7 +65,11 @@
                         >
                             <i class="fas fa-shopping-cart"></i>
                         </button>
-                        <span class="cart-item-count">{{cartCount}}</span>
+                        <span
+                            class="cart-item-count"
+                            :class="{ pinkcart: !home }"
+                            >{{cartCount}}</span
+                        >
                     </div>
                 </div>
             </nav>
@@ -61,28 +81,28 @@
                     </button>
                     <ul class="sidebar-links">
                         <li>
-                            <!-- <a
+                            <a
                                 @click="navHome(); toggleNav();"
                                 class="sidebar-link"
                             >
                                 <i class="fas fa-home fa-fw"></i>home
-                            </a> -->
+                            </a>
                         </li>
                         <li>
                             <a
                                 @click="navProducts(); toggleNav();"
                                 class="sidebar-link"
                             >
-                                <i class="fas fa-tshirt fa-fw"></i>products
+                                <i class="fas fa-tshirt fa-fw"></i>services
                             </a>
                         </li>
                         <li>
-                            <!-- <a
+                            <a
                                 @click="navAbout(); toggleNav();"
                                 class="sidebar-link"
                             >
                                 <i class="fas fa-umbrella-beach fa-fw"></i>about
-                            </a> -->
+                            </a>
                         </li>
                     </ul>
                 </aside>
@@ -98,7 +118,7 @@
                         <i class="fas fa-times"></i>
                     </button>
                     <header>
-                        <h3 class="text-slanted">your cart</h3>
+                        <h3 class="text-slanted">selected Services</h3>
                     </header>
                     <!-- cart items -->
                     <div class="cart-items">
@@ -156,12 +176,12 @@
                 </aside>
             </div>
             <!-- HOME COMPONENT -->
-            <!-- <home-component
+            <home-component
                 @cart-addition="addItemToCart"
                 @all-products="navProducts"
                 v-if="home"
                 :click-id="clickId"
-            ></home-component> -->
+            ></home-component>
             <!-- HOME COMPONENT -->
             <!-- ALL-PRODUCTS COMPONENT -->
             <all-products-component
@@ -171,7 +191,7 @@
             ></all-products-component>
             <!-- ALL-PRODUCTS COMPONENT -->
             <!-- ABOUT COMPONENT -->
-            <!-- <about-component v-if="about"></about-component> -->
+            <about-component v-if="about"></about-component>
             <!-- ABOUT COMPONENT -->
             <!-- PRODUCT COMPONENT -->
             <product-component
@@ -190,19 +210,18 @@
             <!-- hero -->
             <section class="hero">
                 <div class="hero-container">
-                    <h1 class="text-slanted">Aloha Everyday</h1>
-                    <h3>Hawaiian Menswear</h3>
-                    <a @click="FireNavProducts" class="hero-btn">shop now</a>
+                    <h3>THE LEADING</h3>
+                    <h1 class="text-slanted">Transactional Experience Partner</h1>
+                    <a @click="FireNavProducts" class="hero-btn">learn more</a>
                 </div>
             </section>
             <!-- End of hero -->
             <!-- featured products -->
             <section class="section featured">
                 <div class="title">
-                    <h2><span>/</span> featured</h2>
+                    <h2><span>/</span> popular services</h2>
                 </div>
                 <div class="featured-center section-center">
-                    <!-- <h2 class="section-loading">loading...</h2> -->
                     <!-- single product -->
                     <article
                         class="product"
@@ -237,7 +256,7 @@
                     <!-- End of single product -->
                 </div>
                 <div>
-                    <a @click="FireNavProducts" href="#" class="btn">all products</a>
+                    <a @click="FireNavProducts" href="#" class="btn">all services</a>
                 </div>
             </section>
             <!-- End of featured products -->
@@ -261,14 +280,14 @@
                         <article class="single-product-info">
                             <h2 class="single-product-title">{{product[0].fields.name}}</h2>
                             <p class="single-product-company text-slanted">
-                                by {{product[0].fields.brand}}
+                                category: {{product[0].fields.category}}
                             </p>
                             <p class="single-product-price">€{{product[0].fields.price}}</p>
                             <!-- <div class="single-product-colors">
                                 <span v-for="each in product[0].fields.colors" class="product-color" v-bind:style="{ backgroundColor: each }"></span>
                             </div> -->
                             <p class="single-product-desc">{{product[0].fields.description}}</p>
-                            <button @click="addProductToCart(product[0].id)" class="addToCartBtn btn">add to cart</button>
+                            <button @click="addProductToCart(product[0].id)" class="addToCartBtn btn">book service</button>
                         </article>
                     </div>
                 </section>
@@ -295,7 +314,7 @@
                             <input type="text" class="search-input" placeholder="search..." v-on:keyup="searchFilter" v-model="searchInput">
                         </form>
                         <!-- brand -->
-                        <h4>Brand</h4>
+                        <h4>Category</h4>
                         <article class="companies"                     >
                             <button @click="getProducts" class="company-btn">all</button>
                             <button @click="getBrandProducts(each)" v-for="each in brands" class="company-btn">{{each}}</button>
@@ -303,7 +322,9 @@
                         <!-- price -->
                         <h4>Price</h4>
                         <form class="price-form">
-                            <input type="range" class="price-filter" :min="minPrice"  :max="maxPrice" v-on:input="priceInputChange($event)">
+                            <input type="range" class="price-filter" :min="minPrice"  :max="maxPrice"
+                            :value="searchPrice"
+                            v-on:input="priceInputChange($event)">
                         </form>
                         <p class="price-value">€{{searchPrice}}</p>
                         <!-- fabric -->
@@ -363,19 +384,10 @@
             <!-- about -->
             <section class="section section-center about-page">
             <div class="title">
-                <h2><span>/</span> our history</h2>
+                <h2><span>/</span> We are diva-e</h2>
             </div>
                 <p class="about-text">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error
-                tempora exercitationem qui hic molestiae voluptatem possimus
-                iusto maiores culpa autem voluptatum labore tempore magnam
-                facere accusamus dolore dolores commodi, unde ex debitis itaque
-                odio inventore, nesciunt reiciendis! Quod voluptatem molestiae
-                provident ullam nihil harum dolorem esse ex. Rerum maiores
-                assumenda dolores provident dignissimos dicta quos nam cum at,
-                impedit, voluptas repudiandae! Illum fuga odio nesciunt laborum
-                est, sed consequatur laudantium qui aspernatur, voluptas
-                eveniet! Officiis aliquid quas natus ea cumque.
+                We are your digital partner. Together we create digital experiences that enhance customer interactions and enable business success. We know the market and the latest technologies. We’re not waiting for the digital future. We’re tackling it together head-on. We are go-getters with an entrepreneurial spirit, passionate digital experts and strong partners for market leaders and love brands. We are diva-e.
                 </p>
             </section>
             </div>

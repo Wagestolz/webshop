@@ -37,10 +37,12 @@
                         for (let i = 0; i < self.products.length; i++) {
                             if (
                                 !self.brands.includes(
-                                    self.products[i].fields.brand
+                                    self.products[i].fields.category
                                 )
                             ) {
-                                self.brands.push(self.products[i].fields.brand);
+                                self.brands.push(
+                                    self.products[i].fields.category
+                                );
                             }
                         }
                         self.maxPrice =
@@ -220,9 +222,9 @@
             toggleActive: false,
             cartToggleActive: false,
             featuredProducts: [],
-            home: false,
+            home: true,
             about: false,
-            products: true,
+            products: false,
             clickId: location.hash.slice(1),
             cart: [],
             total: 0,

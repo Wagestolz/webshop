@@ -48,7 +48,7 @@ module.exports.getProductsByBrand = (brand) => {
     return db.query(
         `SELECT * 
         FROM products
-        WHERE fields ->> 'brand' ILIKE $1`,
+        WHERE fields ->> 'category' ILIKE $1`,
         [brand]
     );
 };
